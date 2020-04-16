@@ -1,5 +1,5 @@
 import os
-#from git import Repo
+# from git import Repo
 
 
 class Config(object):
@@ -13,4 +13,5 @@ class Config(object):
         self.git_path = os.getcwd()
 
 
-bamboo_config = Config('your_bamboo_instance_url', ('your_user', 'your_password'))
+bamboo_config = Config('your_bamboo_instance_url',
+                       ('your_user', 'your_password'))
