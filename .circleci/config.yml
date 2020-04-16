@@ -11,4 +11,4 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
-            pip install -r requirements.txtgit push orii
+            pip install -r requirements.txt
