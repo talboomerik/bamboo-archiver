@@ -9,7 +9,7 @@ def suite():
     """
     test_suite = unittest.TestSuite()
     test_suite.addTest(unittest.makeSuite(BlackPlanFetcherTest))
-    test_suite.addTest(unittest.makeSuite(ArchiverTest))
+    # test_suite.addTest(unittest.makeSuite(ArchiverTest))
     test_suite.addTest(unittest.makeSuite(BambooSpecSaverTest))
     return test_suite
 

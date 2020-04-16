@@ -8,7 +8,12 @@ jobs:
     steps:
       - checkout
       - run: 
+          name: "install requirements"
           command: |
             sudo pip install pipenv
             pipenv install
             pip install -r requirements.txt
+      - run:
+          name: "run tests"
+          command: |
+            python test.py
