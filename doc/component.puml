@@ -1,0 +1,34 @@
+@startuml
+!include https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram Bamboo Archiver
+
+Person(devOps, "Dev/Ops","Develops and deploys your software")
+System_Ext(bamboo, "Bamboo", "Builds and executes the stests for your product")
+Container_Boundary(app, "Application") {
+    Component(main, "__main__","py","Executes the app")
+    Component(black_plan_fetcher, "BlackPlanFetcher","py","Fetches the plans flagged as black, to delete")
+    Component(plan_deleter,"BambooPlanDeleter","py","Deletes the plans on bamboo")
+    Component(spec_saver, "BambooSpecSaver","py","Saves the PLan as bamboo specs in a local git repo")
+    Component(fetcher, "BambooFetcher","py","Hides the use of fragile bamboo http calls from the rest of the app, so it is more stable")
+}
+System_Ext(local_git, "Local Git Repo", "Stores the versions of your code")
+System_Ext(remote_git, "Git Repo", "Stores the versions of your code")
+
+Rel(devOps,app,"Triggers cleaning")
+Rel(main,spec_saver,"Saves plan to repo")
+Rel(main,black_plan_fetcher,"Retrieves the black plans")
+Rel(main,plan_deleter,"Deletes plans")
+Rel(plan_deleter,bamboo,"Deletes plans from bamboo","HTTPS")
+Rel(spec_saver,fetcher,"Fetches BambooSpecs to save")
+Rel(spec_saver,local_git,"Commits new spec to save","git/Filesystem")
+Rel(local_git,remote_git,"Saves Bamboo specs in versioning system","SSH/HTTPS")
+Rel(black_plan_fetcher,fetcher,"Retrieves flagged plans")
+Rel(fetcher,bamboo,"Retrieves Bamboo Specs","HTTPS/REST")
+Rel(fetcher,bamboo,"Flags plans for deletion","HTTPS/REST")
+
+@enduml

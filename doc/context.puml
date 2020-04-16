@@ -1,0 +1,20 @@
+@startuml
+!include https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Context diagram Bamboo Archiver
+
+Person(devOps, "Dev/Ops","Develops and deploys your software")
+System_Ext(bamboo, "Bamboo", "Builds and executes the stests for your product")
+System(archiver, "Bamboo Archiver","Archives unused Bamboo Plans")
+System_Ext(git, "Git Repo", "Stores the versions of your code")
+
+Rel(devOps,archiver,"Triggers cleaning")
+Rel(archiver,bamboo,"Retrieves Bamboo Specs")
+Rel(archiver,bamboo,"Flags plans for deletion")
+Rel(archiver,bamboo,"Deletes plans")
+Rel(archiver,git,"Saves Bamboo specs in versioning system")
+@enduml
