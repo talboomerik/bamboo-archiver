@@ -14,3 +14,11 @@ def has_ever_run(plan_key):
     r = requests.get(url, headers=headers, auth=config.auth)
     results = r.json()
     return results["results"]["size"] > 0
+
+def get_latest_update_date_of_plan(plan_key):
+    #scrape info from audit log: /chain/admin/config/viewChainAuditLog.action?buildKey=TEST-PLAN
+    pass
+
+def label_plans_black():
+    #label all plans that have not been run in the last month and also not updated in the last month
+    pass
